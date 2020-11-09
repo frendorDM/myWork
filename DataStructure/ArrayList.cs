@@ -62,6 +62,90 @@ namespace DataStructure
       _array[requiredIndex] = value;
       CurrentLenght++;
     }
+
+    public void DeleteLast(int value)
+    {
+      if (_lenght > CurrentLenght)
+      {
+        Reducinglength();
+      }
+      
+      _array[_lenght] = 0;
+      CurrentLenght--;
+    }
+    public void DeleteFirst(int value)
+    {
+      if (_lenght > CurrentLenght)
+      {
+        Reducinglength();
+      }
+      for (int i = _lenght; i == 0; i--)
+      {
+        _array[i - 1] = _array[i];
+      }
+      CurrentLenght--;
+    }
+
+    public void DeleteByIndex(int value, int index)
+    {
+      int requiredIndex = 0;
+      if (_lenght > CurrentLenght)
+      {
+        Reducinglength();
+      }
+      for (int i = 0; i < _lenght; i++)
+      {
+        if (i == index)
+        {
+          requiredIndex = 0;
+        }
+      }
+      for (int i = _lenght; i == requiredIndex; i--)
+      {
+        _array[i-1] = _array[i];
+      }
+      _array[requiredIndex] = value;
+      CurrentLenght++;
+    }
+
+    public int AccessByIndex(int value, int index)
+    {
+      int requiredIndex = 0;
+      if (_lenght == CurrentLenght)
+      {
+        IncreaseLenght();
+      }
+      for (int i = 0; i < _lenght; i++)
+      {
+        if (i == index)
+        {
+          requiredIndex = i;
+        }
+      }
+      for (int i = _lenght + 1; i == requiredIndex; i--)
+      {
+        _array[i + 1] = _array[i];
+      }
+       return _array[requiredIndex]; 
+    }
+
+    public int IndexByValue(int value, int index)
+    {
+      int requiredIndex = 0;
+      if (_lenght == CurrentLenght)
+      {
+        IncreaseLenght();
+      }
+      for (int i = 0; i < _lenght; i++)
+      {
+        if (_array[i] == value)
+        {
+          requiredIndex = i;
+        }
+      }
+      return _array[requiredIndex];
+    }
+
     private void IncreaseLenght(int number = 1)
     {
       int newLenght = _lenght;
@@ -75,6 +159,20 @@ namespace DataStructure
 
       _array = newArray;
     }
+    private void Reducinglength(int number = 1)
+    {
+      int newLenght = _lenght;
+      while (newLenght >= CurrentLenght + number)
+      {
+        newLenght = (int)(newLenght * 0.33);
+      }
+
+      int[] newArray = new int[newLenght];
+      Array.Copy(_array, newArray, _lenght);
+
+      _array = newArray;
+    }
+    
     private void ShiftElements()
     {
       for (int i = 0; i <= _lenght; i++)
